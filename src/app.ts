@@ -24,7 +24,7 @@ app.use('/api/v1', router)
 app.get('/', async (req: Request, res: Response, next: NextFunction) => {
   res.status(httpStatus.OK).json({
     success: true,
-    message: 'Welcome To companyWala Server',
+    message: 'Welcome To ittrainingtube server',
   })
 })
 
