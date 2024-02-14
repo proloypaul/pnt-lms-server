@@ -10,7 +10,15 @@ const createCourseToDB = async (courseData: Course): Promise<Course> => {
 }
 
 const getAllCourseToDB = async (): Promise<Course[] | null> => {
-  const result = await prisma.course.findMany({})
+  const result = await prisma.course.findMany({
+    include: {
+      chapters: {
+        include: {
+          videos: true,
+        },
+      },
+    },
+  })
 
   return result
 }
