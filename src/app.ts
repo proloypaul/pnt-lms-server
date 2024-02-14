@@ -18,6 +18,17 @@ app.use(cookieParse())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// router
+app.use('/api/v1', router)
+
+app.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  res.status(httpStatus.OK).json({
+    success: true,
+    message: 'Welcome To ittrainingtube server',
+  })
+})
+
+// catch api path error
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
     success: false,
@@ -31,14 +42,4 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   })
   next()
 })
-// router
-app.use('/api/v1', router)
-
-app.get('/', async (req: Request, res: Response, next: NextFunction) => {
-  res.status(httpStatus.OK).json({
-    success: true,
-    message: 'Welcome To ittrainingtube server',
-  })
-})
-
 export default app

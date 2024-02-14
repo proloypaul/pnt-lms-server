@@ -1,3 +1,9 @@
-// import router from "../../routes";
+import express from 'express'
+import { CourseController } from './course.controller'
 
-// router.post('/create-course', )
+const router = express.Router()
+
+router.post('/create-course', CourseController.createCourse)
+router.get('/', CourseController.getAllCourses)
+
+export const courseRoutes = router

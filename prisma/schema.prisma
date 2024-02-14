@@ -27,9 +27,37 @@ model Course{
   courseDuration Int
   learnSkill String
   courseDescription String
+  chapters Chapter[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("courses")
 }
 
+model Chapter{
+  id String  @default(uuid()) @unique
+  title String
+  isComplete Boolean @default(false)
+  videos Video[]
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("chapters")
+}
+
+model Video{
+  id String @default(uuid()) @unique
+  videoTitle String
+  videoURL String
+  videoLength String?
+  watch String @default("private")
+  isComplete Boolean @default(false)
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  @@map("videos")
+}
