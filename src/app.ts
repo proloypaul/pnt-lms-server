@@ -18,6 +18,19 @@ app.use(cookieParse())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({
+    success: false,
+    message: 'Not Found',
+    errorMessage: [
+      {
+        path: req.originalUrl,
+        message: 'Api Not Found',
+      },
+    ],
+  })
+  next()
+})
 // router
 app.use('/api/v1', router)
 
