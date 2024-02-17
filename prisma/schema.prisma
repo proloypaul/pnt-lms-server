@@ -29,6 +29,8 @@ model Course{
   learnSkill String[]
   courseDescription String
   chapters Chapter[]
+  instructor Instructor[]
+  reviews Review[] 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -61,4 +63,35 @@ model Video{
   updatedAt DateTime @updatedAt
  
   @@map("videos")
+}
+
+model Instructor{
+  id String @default(uuid()) @unique
+  email String 
+  phone String
+  instructorImg String
+  name String
+  biography String
+  expert String
+  rating Int
+  socialMedia String[]
+  skills String[]
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("instructors")
+}
+
+model Review{
+  id String @default(uuid()) @unique
+  userImage String
+  name String
+  rate Int 
+  compliment String
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

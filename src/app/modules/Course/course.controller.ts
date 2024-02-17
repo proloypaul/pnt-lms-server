@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import catchAsync from '../../shared/catchAsync'
 import { CourseServices } from './course.service'
+import { StatusCodes } from 'http-status-codes'
 
 const createCourse = catchAsync(async (req: Request, res: Response) => {
   const { ...courseData } = req.body
@@ -18,8 +19,14 @@ const createCourse = catchAsync(async (req: Request, res: Response) => {
 const getAllCourses = catchAsync(async (req: Request, res: Response) => {
   const course = await CourseServices.getAllCourseToDB()
 
-  res.status(200).json({
-    status: 'success',
+  // sendResponse<Course>(res, {
+  //   statusCode: StatusCodes.OK,
+  //   success: true,
+  //   message: "get all courses Successfully",
+  //   data: course,
+  // })
+  res.status(StatusCodes.OK).json({
+    status: true,
     message: 'get all courses Successfully',
     data: course,
   })

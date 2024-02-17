@@ -17,6 +17,7 @@ const getAllCourseToDB = async (): Promise<Course[] | null> => {
           videos: true,
         },
       },
+      instructor: true,
     },
   })
 
