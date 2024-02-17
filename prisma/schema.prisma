@@ -17,6 +17,7 @@ model Course{
   title String
   introAboutCourse String
   courseImgUrl String
+  demoVideoLink String
   courseThummbnailUrl String?
   price Float
   isPublished Boolean @default(false)
@@ -25,7 +26,7 @@ model Course{
   courseLevel String
   outline String?
   courseDuration Int
-  learnSkill String
+  learnSkill String[]
   courseDescription String
   chapters Chapter[]
   createdAt DateTime @default(now())
@@ -52,7 +53,7 @@ model Video{
   videoTitle String
   videoURL String
   videoLength String?
-  watch String @default("private")
+  watch String @default("Private")
   isComplete Boolean @default(false)
   chapterId String
   chapter Chapter @relation(fields: [chapterId], references: [id])
