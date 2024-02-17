@@ -25,7 +25,27 @@ const getAllCourseToDB = async (): Promise<Course[] | null> => {
   return result
 }
 
+const getSingleCourseToDB = async (id: string): Promise<Course | null> => {
+  const result = await prisma.course.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      chapters: {
+        include: {
+          videos: true,
+        },
+      },
+      instructor: true,
+      reviews: true,
+    },
+  })
+
+  return result
+}
+
 export const CourseServices = {
   createCourseToDB,
   getAllCourseToDB,
+  getSingleCourseToDB,
 }
