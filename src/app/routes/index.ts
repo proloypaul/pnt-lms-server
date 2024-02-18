@@ -4,6 +4,7 @@ import { chapterRoutes } from '../modules/Chapter/chapter.router'
 import { videoRoutes } from '../modules/Video/chapter.router'
 import { instructorRoutes } from '../modules/Instructor/instructor.router'
 import { reviewerRouters } from '../modules/Reviewer/reviewer.router'
+import { penddingEnrolledCourseRoutes } from '../modules/PenddingEnrolledCourse/penddingEnrollCourse.router'
 
 const router = express.Router()
 
@@ -27,6 +28,10 @@ const moduleRoutes: any[] = [
   {
     path: '/reviews',
     route: reviewerRouters,
+  },
+  {
+    path: '/penddingEnrolledCourse',
+    route: penddingEnrolledCourseRoutes,
   },
 ]
 

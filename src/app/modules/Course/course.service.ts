@@ -19,6 +19,7 @@ const getAllCourseToDB = async (): Promise<Course[] | null> => {
       },
       instructor: true,
       reviews: true,
+      panddingEnrolledModel: true,
     },
   })
 
@@ -38,6 +39,7 @@ const getSingleCourseToDB = async (id: string): Promise<Course | null> => {
       },
       instructor: true,
       reviews: true,
+      panddingEnrolledModel: true,
     },
   })
 

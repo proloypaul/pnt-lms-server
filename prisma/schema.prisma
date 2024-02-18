@@ -31,6 +31,7 @@ model Course{
   chapters Chapter[]
   instructor Instructor[]
   reviews Review[] 
+  panddingEnrolledModel PanddingEnrolledModel[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -96,4 +97,23 @@ model Review{
   updatedAt DateTime @updatedAt
 
   @@map("reviews")
+}
+
+model PanddingEnrolledModel{
+  id String @default(uuid()) @unique
+  name String
+  email String
+  number Decimal
+  ZIPCode Decimal
+  division String?
+  district String?
+  thana String?
+  TotalPriceWithCharge Float
+  isEnrolled Boolean @default(false)
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("panddingEnrolledModel")
 }
