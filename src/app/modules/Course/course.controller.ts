@@ -2,6 +2,11 @@ import { Request, Response } from 'express'
 import catchAsync from '../../shared/catchAsync'
 import { CourseServices } from './course.service'
 import { StatusCodes } from 'http-status-codes'
+import sendResponse from '../../shared/sendResponse'
+import { Course } from '@prisma/client'
+import pickFields from '../../shared/pick'
+import { paginationFields } from '../../constaint/paginationConstaint'
+import { courseFilterableFields } from './course.contraint'
 
 const createCourse = catchAsync(async (req: Request, res: Response) => {
   const { ...courseData } = req.body
@@ -16,19 +21,32 @@ const createCourse = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
-const getAllCourses = catchAsync(async (req: Request, res: Response) => {
-  const course = await CourseServices.getAllCourseToDB()
+// const getAllCourses = catchAsync(async (req: Request, res: Response) => {
 
-  // sendResponse<Course>(res, {
-  //   statusCode: StatusCodes.OK,
-  //   success: true,
-  //   message: "get all courses Successfully",
-  //   data: course,
-  // })
-  res.status(StatusCodes.OK).json({
-    status: true,
+//   const course = await CourseServices.getAllCourseToDB()
+
+//   res.status(StatusCodes.OK).json({
+//     status: true,
+//     message: 'get all courses Successfully',
+//     data: course,
+//   })
+// })
+
+const getAllCourses = catchAsync(async (req: Request, res: Response) => {
+  const paginationOptions = pickFields(req.query, paginationFields)
+  const filtersOptions = pickFields(req.query, courseFilterableFields)
+
+  const result = await CourseServices.getAllCourseToDB(
+    paginationOptions,
+    filtersOptions,
+  )
+
+  sendResponse<Course[]>(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
     message: 'get all courses Successfully',
-    data: course,
+    meta: result.meta,
+    data: result.data,
   })
 })
 
