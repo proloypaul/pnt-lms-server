@@ -62,8 +62,21 @@ const getSingleCourse = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const deleteSingleCourse = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  const singleCourseData = await CourseServices.deleteSingleCourseToDB(id)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'Delete single course successfully',
+    data: singleCourseData,
+  })
+})
+
 export const CourseController = {
   createCourse,
   getAllCourses,
   getSingleCourse,
+  deleteSingleCourse,
 }

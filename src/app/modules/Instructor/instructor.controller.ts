@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import catchAsync from '../../shared/catchAsync'
 import { instructorService } from './instructor.service'
 import { StatusCodes } from 'http-status-codes'
+import upload from '../../shared/ImageUploader'
 
 const createInstructor = catchAsync(async (req: Request, res: Response) => {
   const { ...instructorData } = req.body
@@ -27,7 +28,34 @@ const getAllInstructor = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+// upload Instuctor Image into server
+const uploadInstructorImage = catchAsync(
+  async (req: Request, res: Response) => {
+    const uploadedFiles = upload.single('file')
+    uploadedFiles(req, res, error => {
+      console.log('upload out put ', req.file)
+      if (error) {
+        console.log('Error ', error)
+        res.status(StatusCodes.BAD_REQUEST).json({
+          success: false,
+          message: 'There has an error',
+          filePath: req?.file?.path,
+          fileName: req?.file?.filename,
+        })
+      } else {
+        res.status(StatusCodes.OK).json({
+          success: true,
+          message: 'Image Uploaded Successfully',
+          filePath: req?.file?.path,
+          fileName: req?.file?.filename,
+        })
+      }
+    })
+  },
+)
+
 export const insturctorController = {
   createInstructor,
   getAllInstructor,
+  uploadInstructorImage,
 }

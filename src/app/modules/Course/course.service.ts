@@ -119,8 +119,19 @@ const getSingleCourseToDB = async (id: string): Promise<Course | null> => {
   return result
 }
 
+const deleteSingleCourseToDB = async (id: string): Promise<Course | null> => {
+  const result = await prisma.course.delete({
+    where: {
+      id: id,
+    },
+  })
+
+  return result
+}
+
 export const CourseServices = {
   createCourseToDB,
   getAllCourseToDB,
   getSingleCourseToDB,
+  deleteSingleCourseToDB,
 }
