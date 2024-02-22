@@ -17,7 +17,33 @@ const getAllInstructorToDB = async (): Promise<Instructor[] | null> => {
   return result
 }
 
+// get single instructor
+const getSingleInstructorToDB = async (
+  id: string,
+): Promise<Instructor | null> => {
+  const result = await prisma.instructor.findUnique({
+    where: {
+      id: id,
+    },
+  })
+
+  return result
+}
+
+// delete single instructor
+const deleteSingleInstructorToDB = async (id: string): Promise<Instructor> => {
+  const result = await prisma.instructor.delete({
+    where: {
+      id: id,
+    },
+  })
+
+  return result
+}
+
 export const instructorService = {
   createInstructorToDB,
   getAllInstructorToDB,
+  getSingleInstructorToDB,
+  deleteSingleInstructorToDB,
 }

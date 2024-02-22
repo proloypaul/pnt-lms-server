@@ -28,14 +28,39 @@ const getAllInstructor = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const getSingleInstructor = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+  const instructor = await instructorService.getSingleInstructorToDB(id)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'get single instructor Successfully',
+    data: instructor,
+  })
+})
+
+const deleteSingleInstructor = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    const instructor = await instructorService.deleteSingleInstructorToDB(id)
+
+    res.status(StatusCodes.OK).json({
+      status: true,
+      message: 'Delete single instructor Successfully',
+      data: instructor,
+    })
+  },
+)
+
 // upload Instuctor Image into server
 const uploadInstructorImage = catchAsync(
   async (req: Request, res: Response) => {
     const uploadedFiles = upload.single('file')
     uploadedFiles(req, res, error => {
-      console.log('upload out put ', req.file)
+      // console.log('upload out put ', req.file)
       if (error) {
-        console.log('Error ', error)
+        // console.log('Error ', error)
         res.status(StatusCodes.BAD_REQUEST).json({
           success: false,
           message: 'There has an error',
@@ -57,5 +82,7 @@ const uploadInstructorImage = catchAsync(
 export const insturctorController = {
   createInstructor,
   getAllInstructor,
+  getSingleInstructor,
+  deleteSingleInstructor,
   uploadInstructorImage,
 }

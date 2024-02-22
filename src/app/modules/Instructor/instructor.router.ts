@@ -9,5 +9,7 @@ router.post(
   insturctorController.uploadInstructorImage,
 )
 router.get('/', insturctorController.getAllInstructor)
+router.get('/:id', insturctorController.getSingleInstructor)
+router.delete('/:id', insturctorController.deleteSingleInstructor)
 
 export const instructorRoutes = router

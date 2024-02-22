@@ -36,7 +36,7 @@ const imageUploader = multer({
   },
   fileFilter(req, file, cb) {
     // imageUploader only mp4 and mkv format
-    if (!file.originalname.match(/\.(png|jpg)$/)) {
+    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
       return cb(new Error('Please imageUploader a video'))
     }
     cb(null, true)
