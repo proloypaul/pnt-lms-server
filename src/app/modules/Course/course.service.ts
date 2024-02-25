@@ -119,6 +119,21 @@ const getSingleCourseToDB = async (id: string): Promise<Course | null> => {
   return result
 }
 
+// update course data
+const updateCourseDataToDB = async (
+  id: string,
+  courseData: Partial<Course>,
+): Promise<Course> => {
+  const result = await prisma.course.update({
+    where: {
+      id: id,
+    },
+    data: courseData,
+  })
+
+  return result
+}
+
 const deleteSingleCourseToDB = async (id: string): Promise<Course | null> => {
   const result = await prisma.course.delete({
     where: {
@@ -133,5 +148,6 @@ export const CourseServices = {
   createCourseToDB,
   getAllCourseToDB,
   getSingleCourseToDB,
+  updateCourseDataToDB,
   deleteSingleCourseToDB,
 }
