@@ -1,7 +1,7 @@
 import express from 'express'
 import { courseRoutes } from '../modules/Course/course.router'
 import { chapterRoutes } from '../modules/Chapter/chapter.router'
-import { videoRoutes } from '../modules/Video/chapter.router'
+import { videoRoutes } from '../modules/Video/video.router'
 import { instructorRoutes } from '../modules/Instructor/instructor.router'
 import { reviewerRouters } from '../modules/Reviewer/reviewer.router'
 import { penddingEnrolledCourseRoutes } from '../modules/PenddingEnrolledCourse/penddingEnrollCourse.router'

@@ -5,13 +5,13 @@ import path from 'path'
 
 // Set up Multer storage configuration
 const currentDate = Date.now()
-const formatedCurrentDate = format(currentDate, 'dd-MM-yy')
+const formatedCurrentDate = format(currentDate, 'dd-MM-yy-HH-mm-ss')
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     fs.mkdir('./uploads/', err => {
       cb(null, './uploads/')
-      console.log('mkdir error', err)
     })
     // cb(null, path.join(__dirname, 'uploads')); // Save uploaded videos to the 'uploads/videos' directory
   },
