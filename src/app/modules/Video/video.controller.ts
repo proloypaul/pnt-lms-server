@@ -9,8 +9,8 @@ const createVideo = catchAsync(async (req: Request, res: Response) => {
 
   const video = await videoServices.createVideoToDB(videoData)
 
-  res.status(200).json({
-    status: 'success',
+  res.status(StatusCodes.OK).json({
+    status: true,
     message: 'Video created Successfully',
     data: video,
   })
@@ -19,14 +19,53 @@ const createVideo = catchAsync(async (req: Request, res: Response) => {
 const getAllVideo = catchAsync(async (req: Request, res: Response) => {
   const videoData = await videoServices.getAllVideoToDB()
 
-  res.status(200).json({
-    status: 'success',
+  res.status(StatusCodes.OK).json({
+    status: true,
     message: 'get all video Successfully',
     data: videoData,
   })
 })
 
-// upload Instuctor Image into server
+const getSingleLessionData = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+  const video = await videoServices.getSingleVideoToDB(id)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'get single lession Successfully',
+    data: video,
+  })
+})
+
+// update lession data
+const updateLessionData = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+  const { ...lessionData } = req.body
+
+  const lession = await videoServices.updateLessionDataToDB(id, lessionData)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'updated lession data successfully',
+    data: lession,
+  })
+})
+
+// delete single lession
+const deleteSingleLession = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  const lession = await videoServices.deleteSingleLessionToDB(id)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'Delete single lession Successfully',
+    data: lession,
+  })
+})
+
+// upload Lession video into server videos folder
+
 const uploadLessionVideo = catchAsync(async (req: Request, res: Response) => {
   const uploadedFiles = videoUpoalder.single('file')
   uploadedFiles(req, res, error => {
@@ -52,5 +91,8 @@ const uploadLessionVideo = catchAsync(async (req: Request, res: Response) => {
 export const videoController = {
   createVideo,
   getAllVideo,
+  getSingleLessionData,
+  updateLessionData,
+  deleteSingleLession,
   uploadLessionVideo,
 }

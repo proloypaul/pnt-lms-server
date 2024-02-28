@@ -10,27 +10,15 @@ import { courseFilterableFields } from './course.contraint'
 
 const createCourse = catchAsync(async (req: Request, res: Response) => {
   const { ...courseData } = req.body
-  // console.log("course data", courseData);
 
   const course = await CourseServices.createCourseToDB(courseData)
 
-  res.status(200).json({
-    status: 'success',
+  res.status(StatusCodes.OK).json({
+    status: true,
     message: 'Course created Successfully',
     data: course,
   })
 })
-
-// const getAllCourses = catchAsync(async (req: Request, res: Response) => {
-
-//   const course = await CourseServices.getAllCourseToDB()
-
-//   res.status(StatusCodes.OK).json({
-//     status: true,
-//     message: 'get all courses Successfully',
-//     data: course,
-//   })
-// })
 
 const getAllCourses = catchAsync(async (req: Request, res: Response) => {
   const paginationOptions = pickFields(req.query, paginationFields)

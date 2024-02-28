@@ -135,6 +135,30 @@ const updateCourseDataToDB = async (
 }
 
 const deleteSingleCourseToDB = async (id: string): Promise<Course | null> => {
+  // first find the course data to collect chapter id
+  // const CourseData = await prisma.course.findUnique({
+  //   where: {
+  //     id: id
+  //   },
+  //   include:{
+  //     chapters: {
+  //       include: {
+  //         videos: true
+  //       }
+  //     }
+  //   }
+  // })
+
+  // console.log("deleted course data", CourseData?.chapters[0]?.videos[0]?.id);
+
+  // const deleteCourseChapter = await prisma.chapter.deleteMany({
+  //   where: {
+  //     courseId: id,
+  //   },
+  // })
+
+  // console.log("delete course chapter result", deleteCourseChapter)
+
   const result = await prisma.course.delete({
     where: {
       id: id,

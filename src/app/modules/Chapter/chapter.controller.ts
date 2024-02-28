@@ -9,8 +9,8 @@ const createChapter = catchAsync(async (req: Request, res: Response) => {
 
   const chapter = await chapterServices.createChapterToDB(chapterData)
 
-  res.status(200).json({
-    status: 'success',
+  res.status(StatusCodes.OK).json({
+    status: true,
     message: 'Chapter created Successfully',
     data: chapter,
   })
@@ -19,8 +19,8 @@ const createChapter = catchAsync(async (req: Request, res: Response) => {
 const getAllChapter = catchAsync(async (req: Request, res: Response) => {
   const chaptersData = await chapterServices.getAllChapterToDB()
 
-  res.status(200).json({
-    status: 'success',
+  res.status(StatusCodes.OK).json({
+    status: true,
     message: 'get all chapter Successfully',
     data: chaptersData,
   })
@@ -31,8 +31,8 @@ const getSingleChapter = catchAsync(async (req: Request, res: Response) => {
 
   const chapterData = await chapterServices.getSingleChapterToDB(id)
 
-  res.status(200).json({
-    status: 'success',
+  res.status(StatusCodes.OK).json({
+    status: true,
     message: 'get single chapter Successfully',
     data: chapterData,
   })
