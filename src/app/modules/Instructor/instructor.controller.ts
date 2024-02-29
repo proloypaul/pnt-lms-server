@@ -18,6 +18,23 @@ const createInstructor = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+// update instructor data
+const updateInstructorData = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+  const { ...instructorData } = req.body
+
+  const instructor = await instructorService.updateInstructorDataToDB(
+    id,
+    instructorData,
+  )
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'updated instructor data successfully',
+    data: instructor,
+  })
+})
+
 const getAllInstructor = catchAsync(async (req: Request, res: Response) => {
   const instructors = await instructorService.getAllInstructorToDB()
 
@@ -81,6 +98,7 @@ const uploadInstructorImage = catchAsync(
 
 export const insturctorController = {
   createInstructor,
+  updateInstructorData,
   getAllInstructor,
   getSingleInstructor,
   deleteSingleInstructor,

@@ -11,6 +11,21 @@ const createInstructorToDB = async (
   return result
 }
 
+// update instructor data
+const updateInstructorDataToDB = async (
+  id: string,
+  instructor: Partial<Instructor>,
+): Promise<Instructor> => {
+  const result = await prisma.instructor.update({
+    where: {
+      id: id,
+    },
+    data: instructor,
+  })
+
+  return result
+}
+
 const getAllInstructorToDB = async (): Promise<Instructor[] | null> => {
   const result = await prisma.instructor.findMany({})
 
@@ -44,6 +59,7 @@ const deleteSingleInstructorToDB = async (id: string): Promise<Instructor> => {
 export const instructorService = {
   createInstructorToDB,
   getAllInstructorToDB,
+  updateInstructorDataToDB,
   getSingleInstructorToDB,
   deleteSingleInstructorToDB,
 }

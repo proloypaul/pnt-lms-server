@@ -9,6 +9,7 @@ router.post(
   insturctorController.uploadInstructorImage,
 )
 router.get('/', insturctorController.getAllInstructor)
+router.patch('/:id', insturctorController.updateInstructorData)
 router.get('/:id', insturctorController.getSingleInstructor)
 router.delete('/:id', insturctorController.deleteSingleInstructor)
 
