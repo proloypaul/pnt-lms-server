@@ -43,6 +43,7 @@ model Chapter{
   title String
   isComplete Boolean @default(false)
   videos Video[]
+  quizes Quize[]
   courseId String 
   course Course @relation(fields: [courseId], references: [id])
   createdAt DateTime @default(now())
@@ -77,6 +78,7 @@ model Instructor{
   rating Int
   socialMedia String[]
   skills String[]
+  blogs Blog[]
   courseId String 
   course Course @relation(fields: [courseId], references: [id])
   createdAt DateTime @default(now())
@@ -116,4 +118,45 @@ model PanddingEnrolledModel{
   updatedAt DateTime @updatedAt
 
   @@map("panddingEnrolledModel")
+}
+
+model Quize{
+  id String @default(uuid()) @unique
+  quizeName String
+  isComplete Boolean @default(false)
+  questions Question[]
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("quizes")
+}
+
+model Question{
+  id String @default(uuid()) @unique
+  questionName String
+  options String[]
+  questionAnswer String
+  quizeId String 
+  quizes Quize @relation(fields: [quizeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("questions")
+}
+
+model Blog{
+  id String @default(uuid()) @unique
+  blogThumbnail String
+  title String
+  article String
+  readInTime Int
+  relatedTopic String[]
+  userId String 
+  author Instructor @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blogs")
 }

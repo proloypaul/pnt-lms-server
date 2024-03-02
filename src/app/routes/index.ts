@@ -5,6 +5,8 @@ import { videoRoutes } from '../modules/Video/video.router'
 import { instructorRoutes } from '../modules/Instructor/instructor.router'
 import { reviewerRouters } from '../modules/Reviewer/reviewer.router'
 import { penddingEnrolledCourseRoutes } from '../modules/PenddingEnrolledCourse/penddingEnrollCourse.router'
+import { quizeRoutes } from '../modules/Quize/quize.router'
+import { blogRoutes } from '../modules/Blog/blog.router'
 
 const router = express.Router()
 
@@ -22,6 +24,10 @@ const moduleRoutes: any[] = [
     route: videoRoutes,
   },
   {
+    path: '/quize',
+    route: quizeRoutes,
+  },
+  {
     path: '/instructors',
     route: instructorRoutes,
   },
@@ -32,6 +38,10 @@ const moduleRoutes: any[] = [
   {
     path: '/penddingEnrolledCourse',
     route: penddingEnrolledCourseRoutes,
+  },
+  {
+    path: '/blog',
+    route: blogRoutes,
   },
 ]
 
