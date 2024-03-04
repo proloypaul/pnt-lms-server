@@ -70,6 +70,29 @@ const createQuize = (0, catchAsync_1.default)((req, res) =>
     })
   }),
 )
+const getAllQuize = (0, catchAsync_1.default)((req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const quizes = yield quize_service_1.quizeServices.getAllQuizeToDB()
+    res.status(http_status_codes_1.StatusCodes.OK).json({
+      status: true,
+      message: 'get all quize Successfully',
+      data: quizes,
+    })
+  }),
+)
+const getSingleQuize = (0, catchAsync_1.default)((req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params
+    const quize = yield quize_service_1.quizeServices.getSingleQuizeToDB(id)
+    res.status(http_status_codes_1.StatusCodes.OK).json({
+      status: true,
+      message: 'get single Quize successfully',
+      data: quize,
+    })
+  }),
+)
 exports.quizeController = {
   createQuize,
+  getAllQuize,
+  getSingleQuize,
 }

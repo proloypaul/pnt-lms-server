@@ -38,52 +38,21 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.blogService = void 0
+exports.questionService = void 0
 const prisma_1 = __importDefault(require('../../shared/prisma'))
-const createBlogToDB = blogData =>
+const createQuizeQuestionToDB = questionData =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.blog.create({
-      data: blogData,
+    const result = yield prisma_1.default.question.create({
+      data: questionData,
     })
     return result
   })
-const getAllBlogToDB = () =>
+const getAllQuestionToDB = () =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.blog.findMany({
-      include: {
-        author: true,
-      },
-    })
+    const result = yield prisma_1.default.question.findMany({})
     return result
   })
-// update course data
-// update course data
-const updateBlogDataToDB = (id, blogData) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.blog.update({
-      where: {
-        id: id,
-      },
-      data: blogData,
-    })
-    return result
-  })
-// get single instructor
-const getSingleBlogToDB = id =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.blog.findUnique({
-      where: {
-        id: id,
-      },
-      include: {
-        author: true,
-      },
-    })
-    return result
-  })
-exports.blogService = {
-  createBlogToDB,
-  getAllBlogToDB,
-  getSingleBlogToDB,
-  updateBlogDataToDB,
+exports.questionService = {
+  createQuizeQuestionToDB,
+  getAllQuestionToDB,
 }

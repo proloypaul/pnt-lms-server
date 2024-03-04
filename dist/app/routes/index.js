@@ -14,6 +14,7 @@ const reviewer_router_1 = require('../modules/Reviewer/reviewer.router')
 const penddingEnrollCourse_router_1 = require('../modules/PenddingEnrolledCourse/penddingEnrollCourse.router')
 const quize_router_1 = require('../modules/Quize/quize.router')
 const blog_router_1 = require('../modules/Blog/blog.router')
+const question_router_1 = require('../modules/QuizeQuestion/question.router')
 const router = express_1.default.Router()
 const moduleRoutes = [
   {
@@ -31,6 +32,10 @@ const moduleRoutes = [
   {
     path: '/quize',
     route: quize_router_1.quizeRoutes,
+  },
+  {
+    path: '/question',
+    route: question_router_1.questionRoutes,
   },
   {
     path: '/instructors',

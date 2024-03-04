@@ -12,4 +12,5 @@ const router = express_1.default.Router()
 router.post('/create-blog', blog_controller_1.blogController.createBlog)
 router.get('/', blog_controller_1.blogController.getAllBlog)
 router.get('/:id', blog_controller_1.blogController.getSingleBlog)
+router.patch('/:id', blog_controller_1.blogController.updateBlogData)
 exports.blogRoutes = router

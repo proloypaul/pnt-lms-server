@@ -55,61 +55,36 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.blogController = void 0
+exports.questionController = void 0
 const http_status_codes_1 = require('http-status-codes')
 const catchAsync_1 = __importDefault(require('../../shared/catchAsync'))
-const blog_service_1 = require('./blog.service')
-const createBlog = (0, catchAsync_1.default)((req, res) =>
+const question_service_1 = require('./question.service')
+const createQuestion = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const blogData = __rest(req.body, [])
-    const blog = yield blog_service_1.blogService.createBlogToDB(blogData)
+    const questionData = __rest(req.body, [])
+    const question =
+      yield question_service_1.questionService.createQuizeQuestionToDB(
+        questionData,
+      )
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'blog created Successfully',
-      data: blog,
+      message: 'question created Successfully',
+      data: question,
     })
   }),
 )
-const getAllBlog = (0, catchAsync_1.default)((req, res) =>
+const getAllQuestion = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const blogs = yield blog_service_1.blogService.getAllBlogToDB()
+    const questions =
+      yield question_service_1.questionService.getAllQuestionToDB()
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'get all blog Successfully',
-      data: blogs,
+      message: 'get all question Successfully',
+      data: questions,
     })
   }),
 )
-// update blog data
-const updateBlogData = (0, catchAsync_1.default)((req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params
-    const blogData = __rest(req.body, [])
-    const blog = yield blog_service_1.blogService.updateBlogDataToDB(
-      id,
-      blogData,
-    )
-    res.status(http_status_codes_1.StatusCodes.OK).json({
-      status: true,
-      message: 'updated blog data successfully',
-      data: blog,
-    })
-  }),
-)
-const getSingleBlog = (0, catchAsync_1.default)((req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params
-    const blog = yield blog_service_1.blogService.getSingleBlogToDB(id)
-    res.status(http_status_codes_1.StatusCodes.OK).json({
-      status: true,
-      message: 'get single blog Successfully',
-      data: blog,
-    })
-  }),
-)
-exports.blogController = {
-  createBlog,
-  getAllBlog,
-  getSingleBlog,
-  updateBlogData,
+exports.questionController = {
+  createQuestion,
+  getAllQuestion,
 }

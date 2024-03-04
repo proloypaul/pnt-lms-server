@@ -47,6 +47,29 @@ const createQuizeToDB = quizeData =>
     })
     return result
   })
+const getAllQuizeToDB = () =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.quize.findMany({
+      include: {
+        questions: true,
+      },
+    })
+    return result
+  })
+const getSingleQuizeToDB = id =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.quize.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        questions: true,
+      },
+    })
+    return result
+  })
 exports.quizeServices = {
   createQuizeToDB,
+  getAllQuizeToDB,
+  getSingleQuizeToDB,
 }
