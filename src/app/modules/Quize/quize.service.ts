@@ -9,6 +9,31 @@ const createQuizeToDB = async (quizeData: Quize): Promise<Quize> => {
   return result
 }
 
+const getAllQuizeToDB = async (): Promise<Quize[] | null> => {
+  const result = await prisma.quize.findMany({
+    include: {
+      questions: true,
+    },
+  })
+
+  return result
+}
+
+const getSingleQuizeToDB = async (id: string): Promise<Quize | null> => {
+  const result = await prisma.quize.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      questions: true,
+    },
+  })
+
+  return result
+}
+
 export const quizeServices = {
   createQuizeToDB,
+  getAllQuizeToDB,
+  getSingleQuizeToDB,
 }

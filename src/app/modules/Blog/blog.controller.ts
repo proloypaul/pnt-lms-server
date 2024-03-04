@@ -25,6 +25,20 @@ const getAllBlog = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+// update blog data
+const updateBlogData = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+  const { ...blogData } = req.body
+
+  const blog = await blogService.updateBlogDataToDB(id, blogData)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'updated blog data successfully',
+    data: blog,
+  })
+})
+
 const getSingleBlog = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params
   const blog = await blogService.getSingleBlogToDB(id)
@@ -40,4 +54,5 @@ export const blogController = {
   createBlog,
   getAllBlog,
   getSingleBlog,
+  updateBlogData,
 }

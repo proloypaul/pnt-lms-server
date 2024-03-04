@@ -13,23 +13,6 @@ const createCourseToDB = async (courseData: Course): Promise<Course> => {
   return result
 }
 
-// const getAllCourseToDB = async (): Promise<Course[] | null> => {
-//   const result = await prisma.course.findMany({
-//     include: {
-//       chapters: {
-//         include: {
-//           videos: true,
-//         },
-//       },
-//       instructor: true,
-//       reviews: true,
-//       panddingEnrolledModel: true,
-//     },
-//   })
-
-//   return result
-// }
-
 const getAllCourseToDB = async (
   paginationOptions: Partial<IpaginationOptions>,
   allFiltersOptions: Partial<ICoursefilterOptions>,
@@ -77,6 +60,7 @@ const getAllCourseToDB = async (
       chapters: {
         include: {
           videos: true,
+          quizes: true,
         },
       },
       instructor: true,
