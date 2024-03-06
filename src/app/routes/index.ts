@@ -8,6 +8,7 @@ import { penddingEnrolledCourseRoutes } from '../modules/PenddingEnrolledCourse/
 import { quizeRoutes } from '../modules/Quize/quize.router'
 import { blogRoutes } from '../modules/Blog/blog.router'
 import { questionRoutes } from '../modules/QuizeQuestion/question.router'
+import { studentRoutes } from '../modules/Student/student.router'
 
 const router = express.Router()
 
@@ -35,6 +36,10 @@ const moduleRoutes: any[] = [
   {
     path: '/instructors',
     route: instructorRoutes,
+  },
+  {
+    path: '/students',
+    route: studentRoutes,
   },
   {
     path: '/reviews',

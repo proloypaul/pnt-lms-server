@@ -6,10 +6,11 @@ import upload from '../../shared/ImageUploader'
 
 const createInstructor = catchAsync(async (req: Request, res: Response) => {
   const { ...instructorData } = req.body
-  // console.log("course data", instructorData);
+  const role = 'instructor'
+  const updatedInstuctorData = { ...instructorData, role: role }
 
   const instructor =
-    await instructorService.createInstructorToDB(instructorData)
+    await instructorService.createInstructorToDB(updatedInstuctorData)
 
   res.status(StatusCodes.OK).json({
     status: true,

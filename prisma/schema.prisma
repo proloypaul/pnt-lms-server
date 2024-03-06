@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
- 
+
 
 model Course{
   id String  @default(uuid()) @unique
@@ -83,6 +83,8 @@ model Instructor{
   course Course @relation(fields: [courseId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  password String?
+  role String?
 
   @@map("instructors")
 }
@@ -159,4 +161,21 @@ model Blog{
   updatedAt DateTime @updatedAt
 
   @@map("blogs")
+}
+
+model Student{
+  id String @default(uuid()) @unique
+  name String
+  email String?
+  number String?
+  role String
+  password String
+  rePassword String
+  image String?
+  facebook String?
+  twitter String?
+  linkedin String?
+  whatsapp String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

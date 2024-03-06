@@ -14,6 +14,11 @@ const getAllChapterToDB = async (): Promise<Chapter[] | null> => {
     include: {
       videos: true,
       course: true,
+      quizes: {
+        include: {
+          questions: true,
+        },
+      },
     },
   })
 
@@ -27,6 +32,11 @@ const getSingleChapterToDB = async (id: string): Promise<Chapter | null> => {
     },
     include: {
       videos: true,
+      quizes: {
+        include: {
+          questions: true,
+        },
+      },
     },
   })
 

@@ -78,6 +78,10 @@ const uploadLessionVideo = catchAsync(async (req: Request, res: Response) => {
         fileName: req?.file?.filename,
       })
     } else {
+      // const inputPath = req?.file?.path;
+      // const outputDir = './uploads/hls/';
+      // const outputName = 'index.m3u8';
+      // const outputPath = outputDir + outputName;
       res.status(StatusCodes.OK).json({
         success: true,
         message: 'Video Uploaded Successfully',

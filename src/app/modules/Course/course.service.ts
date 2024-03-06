@@ -60,7 +60,11 @@ const getAllCourseToDB = async (
       chapters: {
         include: {
           videos: true,
-          quizes: true,
+          quizes: {
+            include: {
+              questions: true,
+            },
+          },
         },
       },
       instructor: true,
@@ -92,6 +96,11 @@ const getSingleCourseToDB = async (id: string): Promise<Course | null> => {
       chapters: {
         include: {
           videos: true,
+          quizes: {
+            include: {
+              questions: true,
+            },
+          },
         },
       },
       instructor: true,
