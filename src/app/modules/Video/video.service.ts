@@ -10,11 +10,7 @@ const createVideoToDB = async (videoData: Video): Promise<Video> => {
 }
 
 const getAllVideoToDB = async (): Promise<Video[] | null> => {
-  const result = await prisma.video.findMany({
-    include: {
-      chapter: true,
-    },
-  })
+  const result = await prisma.video.findMany({})
 
   return result
 }
