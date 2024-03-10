@@ -167,8 +167,8 @@ model Blog{
 model Student{
   id String @default(uuid()) @unique
   name String
-  email String?
-  number String?
+  email String? @unique
+  number String? @unique
   role String
   password String
   rePassword String
@@ -179,4 +179,17 @@ model Student{
   whatsapp String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model UserQuizeAns{
+  id String @default(uuid()) @unique
+  email String
+  quizeName String
+  quizeId String
+  userAns String[]
+  isTaken Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("userQuizeAns")
 }

@@ -10,6 +10,7 @@ import { blogRoutes } from '../modules/Blog/blog.router'
 import { questionRoutes } from '../modules/QuizeQuestion/question.router'
 import { studentRoutes } from '../modules/Student/student.router'
 import { authRoutes } from '../modules/Auth/auth.router'
+import { userQuizeAnsRoutes } from '../modules/UserQuizeAns/userQuizeAns.router'
 
 const router = express.Router()
 
@@ -53,6 +54,10 @@ const moduleRoutes: any[] = [
   {
     path: '/blog',
     route: blogRoutes,
+  },
+  {
+    path: '/userQuizeAns',
+    route: userQuizeAnsRoutes,
   },
   {
     path: '/auth',
