@@ -148,6 +148,7 @@ model Question{
   @@map("questions")
 }
 
+
 model Blog{
   id String @default(uuid()) @unique
   blogThumbnail String

@@ -5,6 +5,7 @@ import httpStatus from 'http-status'
 import cookieParse from 'cookie-parser'
 import router from './app/routes'
 import path from 'path'
+import globalErrorHandler from './app/middleware/globalErrorHandler'
 
 const app: Application = express()
 
@@ -56,4 +57,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   })
   next()
 })
+
+app.use(globalErrorHandler)
+
 export default app

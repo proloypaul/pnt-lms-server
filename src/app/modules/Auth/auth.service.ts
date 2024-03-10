@@ -1,3 +1,6 @@
+// import { Secret } from 'jsonwebtoken';
+// import config from '../../../config';
+// import { jwtHelpers } from '../../helpers/jwtHelper';
 import prisma from '../../shared/prisma'
 
 const loginUserToDB = async (payload: any): Promise<any> => {
@@ -34,12 +37,23 @@ const loginUserToDB = async (payload: any): Promise<any> => {
   }
 
   const payloadData = {
+    name: isUserExist?.name,
     email: isUserExist?.email,
     number: isUserExist?.number,
     password: isUserExist?.password,
-    name: isUserExist?.name,
+    role: isUserExist?.role,
   }
-  console.log('login payload data', payloadData)
+
+  // create access token
+  // const accessToken = jwtHelpers.createToken(
+  //   payloadData,
+  //   config.jwt.secrect as Secret,
+  //   config.jwt.expire_in as string
+  // );
+
+  return {
+    payloadData,
+  }
 }
 
 export const authService = {

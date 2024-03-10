@@ -12,4 +12,8 @@ export default {
     AUDIO: process.env.AUDIO,
     VIDEO: process.env.VIDEO,
   },
+  jwt: {
+    secrect: process.env.JWT_SECRET,
+    expire_in: process.env.EXPIRES_IN,
+  },
 }
