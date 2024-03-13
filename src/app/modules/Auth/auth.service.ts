@@ -42,7 +42,13 @@ const loginUserToDB = async (payload: any): Promise<any> => {
     number: isUserExist?.number,
     password: isUserExist?.password,
     role: isUserExist?.role,
+    image:
+      isUserExist?.image == null && isUserExist?.instructorImg == null
+        ? null
+        : isUserExist?.image || isUserExist?.instructorImg,
   }
+
+  console.log('login payloadData', payloadData)
 
   // create access token
   // const accessToken = jwtHelpers.createToken(

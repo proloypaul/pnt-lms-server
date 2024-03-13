@@ -6,7 +6,7 @@ const router = express.Router()
 router.post('/create-userQuizeAns', userQuizeAnsController.createUserQuizeAns)
 router.get('/', userQuizeAnsController.getAllQuizAns)
 router.get('/:id', userQuizeAnsController.getSingleQuizAns)
-router.get('/:email', userQuizeAnsController.getQuizeAnsUsingEmail)
+router.get('/userEmail/:email', userQuizeAnsController.getQuizeAnsUsingEmail)
 router.delete('/:id', userQuizeAnsController.deleteSingelQuizeAns)
 
 export const userQuizeAnsRoutes = router

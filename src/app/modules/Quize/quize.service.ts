@@ -32,8 +32,19 @@ const getSingleQuizeToDB = async (id: string): Promise<Quize | null> => {
   return result
 }
 
+const deleteSingleQuizeToDB = async (id: string): Promise<Quize | null> => {
+  const result = await prisma.quize.delete({
+    where: {
+      id: id,
+    },
+  })
+
+  return result
+}
+
 export const quizeServices = {
   createQuizeToDB,
   getAllQuizeToDB,
   getSingleQuizeToDB,
+  deleteSingleQuizeToDB,
 }

@@ -14,13 +14,13 @@ const createInstructorToDB = async (
 // update instructor data
 const updateInstructorDataToDB = async (
   id: string,
-  instructor: Partial<Instructor>,
+  instructorData: Partial<Instructor>,
 ): Promise<Instructor> => {
   const result = await prisma.instructor.update({
     where: {
       id: id,
     },
-    data: instructor,
+    data: instructorData,
   })
 
   return result

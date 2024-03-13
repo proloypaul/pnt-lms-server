@@ -37,8 +37,21 @@ const getSingleQuize = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const deleteSingleQuize = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  const singeDletedQuize = await quizeServices.deleteSingleQuizeToDB(id)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'Quize deleted successfully',
+    data: singeDletedQuize,
+  })
+})
+
 export const quizeController = {
   createQuize,
   getAllQuize,
   getSingleQuize,
+  deleteSingleQuize,
 }

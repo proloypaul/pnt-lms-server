@@ -12,7 +12,15 @@ const createUserQuizeAnsToDB = async (
 }
 
 const getAllQuizeAnsToDB = async (): Promise<UserQuizeAns[] | null> => {
-  const result = await prisma.userQuizeAns.findMany({})
+  const result = await prisma.userQuizeAns.findMany({
+    include: {
+      takenQuize: {
+        include: {
+          questions: true,
+        },
+      },
+    },
+  })
 
   return result
 }
@@ -25,6 +33,13 @@ const getSingleQuizeAnsToDB = async (
     where: {
       id: id,
     },
+    include: {
+      takenQuize: {
+        include: {
+          questions: true,
+        },
+      },
+    },
   })
 
   return result
@@ -36,6 +51,13 @@ const getQuizeAnsUsingEmailToDB = async (
   const result = await prisma.userQuizeAns.findMany({
     where: {
       email: email,
+    },
+    include: {
+      takenQuize: {
+        include: {
+          questions: true,
+        },
+      },
     },
   })
 
