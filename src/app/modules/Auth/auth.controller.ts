@@ -15,6 +15,18 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const refreshToken = catchAsync(async (req: Request, res: Response) => {
+  const token = req.headers.authorization
+  const result = await authService.refreshToken(token!)
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: 'Token refreshed successfully',
+    data: result,
+  })
+})
+
 export const authController = {
   loginUser,
+  refreshToken,
 }
