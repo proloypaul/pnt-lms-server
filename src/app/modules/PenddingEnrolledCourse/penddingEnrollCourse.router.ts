@@ -7,6 +7,10 @@ router.post(
   '/create-penddingEnrolledData',
   penddingEnrolledCourseController.createPenddingEnrollCourse,
 )
+router.get(
+  '/:emailOrNumber',
+  penddingEnrolledCourseController.getPenddingEnrolledCourseUsingEmail,
+)
 router.get('/', penddingEnrolledCourseController.getAllPenddingEnrolledCourse)
 router.delete(
   '/:id',

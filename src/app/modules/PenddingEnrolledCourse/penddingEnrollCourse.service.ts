@@ -23,6 +23,30 @@ const getAllPenddingEnrolledCourseToDB = async (): Promise<
   return result
 }
 
+const getPenddingEnrolledCourseUsingEmailToDB = async (
+  queryData: string,
+): Promise<PanddingEnrolledModel[] | null> => {
+  const result = await prisma.panddingEnrolledModel.findMany({
+    where: {
+      email: queryData,
+      // OR: [{ email: queryData }, { number: queryData }],
+    },
+    include: {
+      course: {
+        include: {
+          chapters: {
+            include: {
+              videos: true,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  return result
+}
+
 const deletePenddingEnrollCourseToDB = async (
   id: string,
 ): Promise<PanddingEnrolledModel | null> => {
@@ -38,5 +62,6 @@ const deletePenddingEnrollCourseToDB = async (
 export const penddingEnrollCourseServices = {
   createPenddingEnrolledCourseToDB,
   getAllPenddingEnrolledCourseToDB,
+  getPenddingEnrolledCourseUsingEmailToDB,
   deletePenddingEnrollCourseToDB,
 }

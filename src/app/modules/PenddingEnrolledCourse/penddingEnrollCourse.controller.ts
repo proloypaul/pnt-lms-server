@@ -43,6 +43,23 @@ const getAllPenddingEnrolledCourse = catchAsync(
   },
 )
 
+const getPenddingEnrolledCourseUsingEmail = catchAsync(
+  async (req: Request, res: Response) => {
+    const { emailOrNumber } = req.params
+
+    const peddingEnrollCourseData =
+      await penddingEnrollCourseServices.getPenddingEnrolledCourseUsingEmailToDB(
+        emailOrNumber,
+      )
+
+    res.status(StatusCodes.OK).json({
+      status: true,
+      message: 'get enrolled user course Successfully',
+      data: peddingEnrollCourseData,
+    })
+  },
+)
+
 const deleteSinglePenddingEnrolledCourse = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params
@@ -61,5 +78,6 @@ const deleteSinglePenddingEnrolledCourse = catchAsync(
 export const penddingEnrolledCourseController = {
   createPenddingEnrollCourse,
   getAllPenddingEnrolledCourse,
+  getPenddingEnrolledCourseUsingEmail,
   deleteSinglePenddingEnrolledCourse,
 }
