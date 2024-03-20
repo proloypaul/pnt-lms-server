@@ -15,6 +15,9 @@ const penddingEnrollCourse_router_1 = require('../modules/PenddingEnrolledCourse
 const quize_router_1 = require('../modules/Quize/quize.router')
 const blog_router_1 = require('../modules/Blog/blog.router')
 const question_router_1 = require('../modules/QuizeQuestion/question.router')
+const student_router_1 = require('../modules/Student/student.router')
+const auth_router_1 = require('../modules/Auth/auth.router')
+const userQuizeAns_router_1 = require('../modules/UserQuizeAns/userQuizeAns.router')
 const router = express_1.default.Router()
 const moduleRoutes = [
   {
@@ -42,6 +45,10 @@ const moduleRoutes = [
     route: instructor_router_1.instructorRoutes,
   },
   {
+    path: '/students',
+    route: student_router_1.studentRoutes,
+  },
+  {
     path: '/reviews',
     route: reviewer_router_1.reviewerRouters,
   },
@@ -52,6 +59,14 @@ const moduleRoutes = [
   {
     path: '/blog',
     route: blog_router_1.blogRoutes,
+  },
+  {
+    path: '/userQuizeAns',
+    route: userQuizeAns_router_1.userQuizeAnsRoutes,
+  },
+  {
+    path: '/auth',
+    route: auth_router_1.authRoutes,
   },
 ]
 moduleRoutes.forEach(routes => router.use(routes.path, routes.route))

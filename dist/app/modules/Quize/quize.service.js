@@ -68,8 +68,18 @@ const getSingleQuizeToDB = id =>
     })
     return result
   })
+const deleteSingleQuizeToDB = id =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.quize.delete({
+      where: {
+        id: id,
+      },
+    })
+    return result
+  })
 exports.quizeServices = {
   createQuizeToDB,
   getAllQuizeToDB,
   getSingleQuizeToDB,
+  deleteSingleQuizeToDB,
 }

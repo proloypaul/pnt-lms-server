@@ -55,57 +55,33 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.quizeController = void 0
-const http_status_codes_1 = require('http-status-codes')
+exports.authController = void 0
 const catchAsync_1 = __importDefault(require('../../shared/catchAsync'))
-const quize_service_1 = require('./quize.service')
-const createQuize = (0, catchAsync_1.default)((req, res) =>
+const http_status_codes_1 = require('http-status-codes')
+const auth_service_1 = require('./auth.service')
+const loginUser = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const quizeData = __rest(req.body, [])
-    const quize = yield quize_service_1.quizeServices.createQuizeToDB(quizeData)
+    const loginData = __rest(req.body, [])
+    const user = yield auth_service_1.authService.loginUserToDB(loginData)
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'quize created Successfully',
-      data: quize,
+      message: 'login User Successfully',
+      data: user,
     })
   }),
 )
-const getAllQuize = (0, catchAsync_1.default)((req, res) =>
+const refreshToken = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const quizes = yield quize_service_1.quizeServices.getAllQuizeToDB()
+    const token = req.headers.authorization
+    const result = yield auth_service_1.authService.refreshToken(token)
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'get all quize Successfully',
-      data: quizes,
+      message: 'Token refreshed successfully',
+      data: result,
     })
   }),
 )
-const getSingleQuize = (0, catchAsync_1.default)((req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params
-    const quize = yield quize_service_1.quizeServices.getSingleQuizeToDB(id)
-    res.status(http_status_codes_1.StatusCodes.OK).json({
-      status: true,
-      message: 'get single Quize successfully',
-      data: quize,
-    })
-  }),
-)
-const deleteSingleQuize = (0, catchAsync_1.default)((req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params
-    const singeDletedQuize =
-      yield quize_service_1.quizeServices.deleteSingleQuizeToDB(id)
-    res.status(http_status_codes_1.StatusCodes.OK).json({
-      status: true,
-      message: 'Quize deleted successfully',
-      data: singeDletedQuize,
-    })
-  }),
-)
-exports.quizeController = {
-  createQuize,
-  getAllQuize,
-  getSingleQuize,
-  deleteSingleQuize,
+exports.authController = {
+  loginUser,
+  refreshToken,
 }

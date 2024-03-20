@@ -15,6 +15,11 @@ router.post(
     .createPenddingEnrollCourse,
 )
 router.get(
+  '/:emailOrNumber',
+  penddingEnrollCourse_controller_1.penddingEnrolledCourseController
+    .getPenddingEnrolledCourseUsingEmail,
+)
+router.get(
   '/',
   penddingEnrollCourse_controller_1.penddingEnrolledCourseController
     .getAllPenddingEnrolledCourse,

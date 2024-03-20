@@ -48,13 +48,13 @@ const createInstructorToDB = instructorData =>
     return result
   })
 // update instructor data
-const updateInstructorDataToDB = (id, instructor) =>
+const updateInstructorDataToDB = (id, instructorData) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.instructor.update({
       where: {
         id: id,
       },
-      data: instructor,
+      data: instructorData,
     })
     return result
   })

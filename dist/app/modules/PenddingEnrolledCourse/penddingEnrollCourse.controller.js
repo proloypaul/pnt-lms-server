@@ -75,6 +75,21 @@ const getAllPenddingEnrolledCourse = (0, catchAsync_1.default)((req, res) =>
     })
   }),
 )
+const getPenddingEnrolledCourseUsingEmail = (0, catchAsync_1.default)(
+  (req, res) =>
+    __awaiter(void 0, void 0, void 0, function* () {
+      const { emailOrNumber } = req.params
+      const peddingEnrollCourseData =
+        yield penddingEnrollCourse_service_1.penddingEnrollCourseServices.getPenddingEnrolledCourseUsingEmailToDB(
+          emailOrNumber,
+        )
+      res.status(http_status_codes_1.StatusCodes.OK).json({
+        status: true,
+        message: 'get enrolled user course Successfully',
+        data: peddingEnrollCourseData,
+      })
+    }),
+)
 const deleteSinglePenddingEnrolledCourse = (0, catchAsync_1.default)(
   (req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
@@ -93,5 +108,6 @@ const deleteSinglePenddingEnrolledCourse = (0, catchAsync_1.default)(
 exports.penddingEnrolledCourseController = {
   createPenddingEnrollCourse,
   getAllPenddingEnrolledCourse,
+  getPenddingEnrolledCourseUsingEmail,
   deleteSinglePenddingEnrolledCourse,
 }

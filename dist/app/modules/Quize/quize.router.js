@@ -12,4 +12,5 @@ const router = express_1.default.Router()
 router.post('/create-quize', quize_controller_1.quizeController.createQuize)
 router.get('/', quize_controller_1.quizeController.getAllQuize)
 router.get('/:id', quize_controller_1.quizeController.getSingleQuize)
+router.delete('/:id', quize_controller_1.quizeController.deleteSingleQuize)
 exports.quizeRoutes = router

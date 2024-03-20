@@ -38,55 +38,55 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.videoServices = void 0
+exports.studentService = void 0
 const prisma_1 = __importDefault(require('../../shared/prisma'))
-const createVideoToDB = videoData =>
+const createStudentToDB = studentData =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.create({
-      data: videoData,
+    const result = yield prisma_1.default.student.create({
+      data: studentData,
     })
     return result
   })
-const getAllVideoToDB = () =>
+const getAllStudentToDB = () =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.findMany({})
+    const result = yield prisma_1.default.student.findMany({})
     return result
   })
-// get single video
-const getSingleVideoToDB = id =>
+// get single instructor
+const getSingleStudentToDB = id =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.findUnique({
+    const result = yield prisma_1.default.student.findUnique({
       where: {
         id: id,
       },
     })
     return result
   })
-// update lession Data
-const updateLessionDataToDB = (id, lessionData) =>
+// update instructor data
+const updateStudentToDB = (id, student) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.update({
+    const result = yield prisma_1.default.student.update({
       where: {
         id: id,
       },
-      data: lessionData,
+      data: student,
     })
     return result
   })
-// delete single lession
-const deleteSingleLessionToDB = id =>
+// delete single instructor
+const deleteSingleStudentToDB = id =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.delete({
+    const result = yield prisma_1.default.student.delete({
       where: {
         id: id,
       },
     })
     return result
   })
-exports.videoServices = {
-  createVideoToDB,
-  getAllVideoToDB,
-  getSingleVideoToDB,
-  updateLessionDataToDB,
-  deleteSingleLessionToDB,
+exports.studentService = {
+  createStudentToDB,
+  getAllStudentToDB,
+  getSingleStudentToDB,
+  updateStudentToDB,
+  deleteSingleStudentToDB,
 }

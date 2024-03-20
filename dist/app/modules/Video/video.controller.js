@@ -60,6 +60,12 @@ const catchAsync_1 = __importDefault(require('../../shared/catchAsync'))
 const video_service_1 = require('./video.service')
 const VideoUploader_1 = __importDefault(require('../../shared/VideoUploader'))
 const http_status_codes_1 = require('http-status-codes')
+const fluent_ffmpeg_1 = __importDefault(require('fluent-ffmpeg'))
+const ffmpeg_1 = __importDefault(require('@ffmpeg-installer/ffmpeg'))
+const path_1 = require('path')
+const fs_1 = require('fs')
+const config_1 = __importDefault(require('../../../config'))
+const date_fns_1 = require('date-fns')
 const createVideo = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const videoData = __rest(req.body, [])
@@ -126,12 +132,12 @@ const uploadLessionVideo = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const uploadedFiles = VideoUploader_1.default.single('file')
     uploadedFiles(req, res, error => {
-      var _a, _b, _c, _d
+      var _a, _b, _c, _d, _e
       if (error) {
         // console.log('Error ', error)
         res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json({
           success: false,
-          message: 'There has an error',
+          message: 'There has an error from server',
           filePath:
             (_a = req === null || req === void 0 ? void 0 : req.file) ===
               null || _a === void 0
@@ -144,20 +150,81 @@ const uploadLessionVideo = (0, catchAsync_1.default)((req, res) =>
               : _b.filename,
         })
       } else {
-        res.status(http_status_codes_1.StatusCodes.OK).json({
-          success: true,
-          message: 'Video Uploaded Successfully',
-          filePath:
-            (_c = req === null || req === void 0 ? void 0 : req.file) ===
+        try {
+          const currentDate = Date.now()
+          const formatedCurrentDate = (0, date_fns_1.format)(
+            currentDate,
+            'dd-MM-yy-HH-mm-ss',
+          )
+          // secure video and formate into .m3u8
+          const outputDirName = `${
+            formatedCurrentDate +
+            ((_c = req === null || req === void 0 ? void 0 : req.file) ===
               null || _c === void 0
               ? void 0
-              : _c.path,
-          fileName:
-            (_d = req === null || req === void 0 ? void 0 : req.file) ===
-              null || _d === void 0
+              : _c.originalname.split(
+                  (0, path_1.extname)(
+                    (_d =
+                      req === null || req === void 0 ? void 0 : req.file) ===
+                      null || _d === void 0
+                      ? void 0
+                      : _d.originalname,
+                  ),
+                )[0])
+          }`
+          const inputFileName =
+            (_e = req === null || req === void 0 ? void 0 : req.file) ===
+              null || _e === void 0
               ? void 0
-              : _d.filename,
-        })
+              : _e.filename
+          const inputFilePath = (0, path_1.resolve)(
+            __dirname,
+            `../../../../videos/${inputFileName}`,
+          )
+          const outputDir = (0, path_1.resolve)(
+            __dirname,
+            `../../../../videos/transcoded/`,
+          )
+          const manifestPath = `videos/transcoded/${outputDirName}.m3u8`
+          if (!(0, fs_1.existsSync)(outputDir)) {
+            ;(0, fs_1.mkdirSync)(outputDir, { recursive: true })
+          }
+          const command = (0, fluent_ffmpeg_1.default)(inputFilePath)
+            .setFfmpegPath(ffmpeg_1.default.path)
+            .outputOptions([
+              `-hls_time ${config_1.default.HLS_SEGMENT_DURATION}`,
+              `-hls_list_size ${config_1.default.HLS_LIST_SIZE}`,
+              `-c:v ${config_1.default.CODEC.VIDEO}`,
+              `-c:a ${config_1.default.CODEC.AUDIO}`,
+            ])
+          command.on('start', () => {
+            // console.log("Starting transcoding file: ", inputFileName)
+          })
+          command.on('error', err => {
+            throw new Error(err)
+          })
+          command.on('end', () => {
+            var _a
+            ;(0, fs_1.unlink)(inputFilePath, err => {
+              if (err) throw new Error('encoded video end error')
+              // console.log(`raw file removed from ${inputFilePath}` )
+            })
+            res.status(http_status_codes_1.StatusCodes.OK).json({
+              success: true,
+              message: 'Video Uploaded Successfully',
+              filePath: manifestPath,
+              fileName:
+                (_a = req === null || req === void 0 ? void 0 : req.file) ===
+                  null || _a === void 0
+                  ? void 0
+                  : _a.filename,
+            })
+          })
+          // console.log("transcoding code manifast path", manifestPath)
+          command.output(manifestPath).run()
+        } catch (error) {
+          console.log('TransCoding failed:', error)
+        }
       }
     })
   }),

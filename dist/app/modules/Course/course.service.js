@@ -110,7 +110,11 @@ const getAllCourseToDB = (paginationOptions, allFiltersOptions) =>
         chapters: {
           include: {
             videos: true,
-            quizes: true,
+            quizes: {
+              include: {
+                questions: true,
+              },
+            },
           },
         },
         instructor: true,
@@ -140,6 +144,11 @@ const getSingleCourseToDB = id =>
         chapters: {
           include: {
             videos: true,
+            quizes: {
+              include: {
+                questions: true,
+              },
+            },
           },
         },
         instructor: true,

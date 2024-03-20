@@ -53,6 +53,11 @@ const getAllChapterToDB = () =>
       include: {
         videos: true,
         course: true,
+        quizes: {
+          include: {
+            questions: true,
+          },
+        },
       },
     })
     return result
@@ -65,6 +70,11 @@ const getSingleChapterToDB = id =>
       },
       include: {
         videos: true,
+        quizes: {
+          include: {
+            questions: true,
+          },
+        },
       },
     })
     return result

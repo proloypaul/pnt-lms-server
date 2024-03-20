@@ -56,6 +56,27 @@ const getAllPenddingEnrolledCourseToDB = () =>
     })
     return result
   })
+const getPenddingEnrolledCourseUsingEmailToDB = queryData =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.panddingEnrolledModel.findMany({
+      where: {
+        email: queryData,
+        // OR: [{ email: queryData }, { number: queryData }],
+      },
+      include: {
+        course: {
+          include: {
+            chapters: {
+              include: {
+                videos: true,
+              },
+            },
+          },
+        },
+      },
+    })
+    return result
+  })
 const deletePenddingEnrollCourseToDB = id =>
   __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.panddingEnrolledModel.delete({
@@ -68,5 +89,6 @@ const deletePenddingEnrollCourseToDB = id =>
 exports.penddingEnrollCourseServices = {
   createPenddingEnrolledCourseToDB,
   getAllPenddingEnrolledCourseToDB,
+  getPenddingEnrolledCourseUsingEmailToDB,
   deletePenddingEnrollCourseToDB,
 }

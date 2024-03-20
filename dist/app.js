@@ -44,6 +44,10 @@ const cors_1 = __importDefault(require('cors'))
 const http_status_1 = __importDefault(require('http-status'))
 const cookie_parser_1 = __importDefault(require('cookie-parser'))
 const routes_1 = __importDefault(require('./app/routes'))
+const path_1 = __importDefault(require('path'))
+const globalErrorHandler_1 = __importDefault(
+  require('./app/middleware/globalErrorHandler'),
+)
 const app = (0, express_1.default)()
 const corsOptions = {
   origin: true,
@@ -58,6 +62,12 @@ app.use(express_1.default.urlencoded({ extended: true }))
 app.use('/api/v1', routes_1.default)
 app.use('/uploads', express_1.default.static('uploads'))
 app.use('/videos', express_1.default.static('videos'))
+app.use(
+  '/videos/transcoded',
+  express_1.default.static(
+    path_1.default.join(__dirname, './videos/transcoded'),
+  ),
+)
 app.get('/', (req, res, next) =>
   __awaiter(void 0, void 0, void 0, function* () {
     res.status(http_status_1.default.OK).json({
@@ -66,6 +76,13 @@ app.get('/', (req, res, next) =>
     })
   }),
 )
+app.use((req, res, next) => {
+  const filePath = req.path
+  if (filePath.endsWith('.m3u8')) {
+    res.setHeader('Content-Type', 'application/x-mpegURL')
+  }
+  next()
+})
 // catch api path error
 app.use((req, res, next) => {
   res.status(404).json({
@@ -80,4 +97,5 @@ app.use((req, res, next) => {
   })
   next()
 })
+app.use(globalErrorHandler_1.default)
 exports.default = app

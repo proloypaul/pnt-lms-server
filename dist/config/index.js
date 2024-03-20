@@ -11,4 +11,14 @@ dotenv_1.default.config({ path: path_1.default.join(process.cwd(), '.env') })
 exports.default = {
   env: process.env.NODE_ENV,
   port: process.env.PORT || 4000,
+  HLS_SEGMENT_DURATION: process.env.HLS_SEGMENT_DURATION,
+  HLS_LIST_SIZE: process.env.HLS_LIST_SIZE,
+  CODEC: {
+    AUDIO: process.env.AUDIO,
+    VIDEO: process.env.VIDEO,
+  },
+  jwt: {
+    secrect: process.env.JWT_SECRET,
+    expire_in: process.env.EXPIRES_IN,
+  },
 }

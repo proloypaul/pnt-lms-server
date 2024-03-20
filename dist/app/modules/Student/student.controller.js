@@ -55,57 +55,96 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.quizeController = void 0
-const http_status_codes_1 = require('http-status-codes')
+exports.studentController = void 0
 const catchAsync_1 = __importDefault(require('../../shared/catchAsync'))
-const quize_service_1 = require('./quize.service')
-const createQuize = (0, catchAsync_1.default)((req, res) =>
+const http_status_codes_1 = require('http-status-codes')
+const student_service_1 = require('./student.service')
+const createStudent = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const quizeData = __rest(req.body, [])
-    const quize = yield quize_service_1.quizeServices.createQuizeToDB(quizeData)
+    const studentData = __rest(req.body, [])
+    const role = 'student'
+    const updateStudentData = Object.assign(Object.assign({}, studentData), {
+      role: role,
+    })
+    if (
+      studentData === null || studentData === void 0
+        ? void 0
+        : studentData.email
+    ) {
+      console.log('we are sent an verification email to your email')
+    }
+    if (
+      studentData === null || studentData === void 0
+        ? void 0
+        : studentData.number
+    ) {
+      console.log('we are sent you a verification code to your number')
+    }
+    const student =
+      yield student_service_1.studentService.createStudentToDB(
+        updateStudentData,
+      )
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'quize created Successfully',
-      data: quize,
+      message: 'Student created Successfully',
+      data: student,
     })
   }),
 )
-const getAllQuize = (0, catchAsync_1.default)((req, res) =>
+const getAllStudent = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const quizes = yield quize_service_1.quizeServices.getAllQuizeToDB()
+    const students = yield student_service_1.studentService.getAllStudentToDB()
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'get all quize Successfully',
-      data: quizes,
+      message: 'get all student Successfully',
+      data: students,
     })
   }),
 )
-const getSingleQuize = (0, catchAsync_1.default)((req, res) =>
+const getSingleStudent = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params
-    const quize = yield quize_service_1.quizeServices.getSingleQuizeToDB(id)
+    const student =
+      yield student_service_1.studentService.getSingleStudentToDB(id)
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'get single Quize successfully',
-      data: quize,
+      message: 'get single student Successfully',
+      data: student,
     })
   }),
 )
-const deleteSingleQuize = (0, catchAsync_1.default)((req, res) =>
+// update instructor data
+const updateStudent = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params
-    const singeDletedQuize =
-      yield quize_service_1.quizeServices.deleteSingleQuizeToDB(id)
+    const studentData = __rest(req.body, [])
+    const student = yield student_service_1.studentService.updateStudentToDB(
+      id,
+      studentData,
+    )
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'Quize deleted successfully',
-      data: singeDletedQuize,
+      message: 'updated student data successfully',
+      data: student,
     })
   }),
 )
-exports.quizeController = {
-  createQuize,
-  getAllQuize,
-  getSingleQuize,
-  deleteSingleQuize,
+const deleteSingleStudent = (0, catchAsync_1.default)((req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params
+    const student =
+      yield student_service_1.studentService.deleteSingleStudentToDB(id)
+    res.status(http_status_codes_1.StatusCodes.OK).json({
+      status: true,
+      message: 'Delete single student Successfully',
+      data: student,
+    })
+  }),
+)
+exports.studentController = {
+  createStudent,
+  updateStudent,
+  getAllStudent,
+  getSingleStudent,
+  deleteSingleStudent,
 }

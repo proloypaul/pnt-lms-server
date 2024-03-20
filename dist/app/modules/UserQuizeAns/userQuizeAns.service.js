@@ -38,55 +38,88 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.videoServices = void 0
+exports.userQuizeAnsService = void 0
 const prisma_1 = __importDefault(require('../../shared/prisma'))
-const createVideoToDB = videoData =>
+const createUserQuizeAnsToDB = quizeAnsData =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.create({
-      data: videoData,
+    const result = yield prisma_1.default.userQuizeAns.create({
+      data: quizeAnsData,
     })
     return result
   })
-const getAllVideoToDB = () =>
+const getAllQuizeAnsToDB = () =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.findMany({})
+    const result = yield prisma_1.default.userQuizeAns.findMany({
+      include: {
+        takenQuize: {
+          include: {
+            questions: true,
+          },
+        },
+      },
+    })
     return result
   })
-// get single video
-const getSingleVideoToDB = id =>
+// get single instructor
+const getSingleQuizeAnsToDB = id =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.findUnique({
+    const result = yield prisma_1.default.userQuizeAns.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        takenQuize: {
+          include: {
+            questions: true,
+          },
+        },
+      },
+    })
+    return result
+  })
+const getQuizeAnsUsingEmailToDB = email =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.userQuizeAns.findMany({
+      where: {
+        email: email,
+      },
+      include: {
+        takenQuize: {
+          include: {
+            questions: true,
+          },
+        },
+      },
+    })
+    return result
+  })
+// update instructor data
+// const updateStudentToDB = async (
+//   id: string,
+//   student: Partial<Student>,
+// ): Promise<Student> => {
+//   const result = await prisma.student.update({
+//     where: {
+//       id: id,
+//     },
+//     data: student,
+//   })
+//   return result
+// }
+// delete single instructor
+const deleteSingleQuizeAns = id =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.userQuizeAns.delete({
       where: {
         id: id,
       },
     })
     return result
   })
-// update lession Data
-const updateLessionDataToDB = (id, lessionData) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.update({
-      where: {
-        id: id,
-      },
-      data: lessionData,
-    })
-    return result
-  })
-// delete single lession
-const deleteSingleLessionToDB = id =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.video.delete({
-      where: {
-        id: id,
-      },
-    })
-    return result
-  })
-exports.videoServices = {
-  createVideoToDB,
-  getAllVideoToDB,
-  getSingleVideoToDB,
-  updateLessionDataToDB,
-  deleteSingleLessionToDB,
+exports.userQuizeAnsService = {
+  createUserQuizeAnsToDB,
+  getAllQuizeAnsToDB,
+  getSingleQuizeAnsToDB,
+  getQuizeAnsUsingEmailToDB,
+  deleteSingleQuizeAns,
 }

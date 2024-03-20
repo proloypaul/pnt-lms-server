@@ -55,57 +55,88 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.quizeController = void 0
-const http_status_codes_1 = require('http-status-codes')
+exports.userQuizeAnsController = void 0
 const catchAsync_1 = __importDefault(require('../../shared/catchAsync'))
-const quize_service_1 = require('./quize.service')
-const createQuize = (0, catchAsync_1.default)((req, res) =>
+const http_status_codes_1 = require('http-status-codes')
+const userQuizeAns_service_1 = require('./userQuizeAns.service')
+const createUserQuizeAns = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const quizeData = __rest(req.body, [])
-    const quize = yield quize_service_1.quizeServices.createQuizeToDB(quizeData)
+    const quizeAnsData = __rest(req.body, [])
+    const userQuizeAns =
+      yield userQuizeAns_service_1.userQuizeAnsService.createUserQuizeAnsToDB(
+        quizeAnsData,
+      )
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'quize created Successfully',
-      data: quize,
+      message: 'Quize submitted Successfully',
+      data: userQuizeAns,
     })
   }),
 )
-const getAllQuize = (0, catchAsync_1.default)((req, res) =>
+const getAllQuizAns = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const quizes = yield quize_service_1.quizeServices.getAllQuizeToDB()
+    const quizeAns =
+      yield userQuizeAns_service_1.userQuizeAnsService.getAllQuizeAnsToDB()
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'get all quize Successfully',
-      data: quizes,
+      message: 'get all quizeAns Successfully',
+      data: quizeAns,
     })
   }),
 )
-const getSingleQuize = (0, catchAsync_1.default)((req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params
-    const quize = yield quize_service_1.quizeServices.getSingleQuizeToDB(id)
-    res.status(http_status_codes_1.StatusCodes.OK).json({
-      status: true,
-      message: 'get single Quize successfully',
-      data: quize,
-    })
-  }),
-)
-const deleteSingleQuize = (0, catchAsync_1.default)((req, res) =>
+const getSingleQuizAns = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params
-    const singeDletedQuize =
-      yield quize_service_1.quizeServices.deleteSingleQuizeToDB(id)
+    const quizeAnsData =
+      yield userQuizeAns_service_1.userQuizeAnsService.getSingleQuizeAnsToDB(id)
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
-      message: 'Quize deleted successfully',
-      data: singeDletedQuize,
+      message: 'get single quizeAnsData Successfully',
+      data: quizeAnsData,
     })
   }),
 )
-exports.quizeController = {
-  createQuize,
-  getAllQuize,
-  getSingleQuize,
-  deleteSingleQuize,
+const getQuizeAnsUsingEmail = (0, catchAsync_1.default)((req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params
+    const quizeAnsData =
+      yield userQuizeAns_service_1.userQuizeAnsService.getQuizeAnsUsingEmailToDB(
+        email,
+      )
+    res.status(http_status_codes_1.StatusCodes.OK).json({
+      status: true,
+      message: 'get quizeAnsData using email Successfully',
+      data: quizeAnsData,
+    })
+  }),
+)
+// update instructor data
+// const updateStudent = catchAsync(async (req: Request, res: Response) => {
+//   const { id } = req.params
+//   const { ...studentData } = req.body
+//   const student = await studentService.updateStudentToDB(id, studentData)
+//   res.status(StatusCodes.OK).json({
+//     status: true,
+//     message: 'updated student data successfully',
+//     data: student,
+//   })
+// })
+const deleteSingelQuizeAns = (0, catchAsync_1.default)((req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params
+    const quizeAns =
+      yield userQuizeAns_service_1.userQuizeAnsService.deleteSingleQuizeAns(id)
+    res.status(http_status_codes_1.StatusCodes.OK).json({
+      status: true,
+      message: 'Delete single quizeAns Successfully',
+      data: quizeAns,
+    })
+  }),
+)
+exports.userQuizeAnsController = {
+  createUserQuizeAns,
+  getAllQuizAns,
+  getSingleQuizAns,
+  getQuizeAnsUsingEmail,
+  deleteSingelQuizeAns,
 }

@@ -62,15 +62,15 @@ const http_status_codes_1 = require('http-status-codes')
 const ImageUploader_1 = __importDefault(require('../../shared/ImageUploader'))
 const createInstructor = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const instructorData = __rest(
-      req.body,
-      // console.log("course data", instructorData);
-      [],
+    const instructorData = __rest(req.body, [])
+    const role = 'instructor'
+    const updatedInstuctorData = Object.assign(
+      Object.assign({}, instructorData),
+      { role: role },
     )
-    // console.log("course data", instructorData);
     const instructor =
       yield instructor_service_1.instructorService.createInstructorToDB(
-        instructorData,
+        updatedInstuctorData,
       )
     res.status(http_status_codes_1.StatusCodes.OK).json({
       status: true,
