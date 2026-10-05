@@ -74,9 +74,10 @@ const deleteSingleLession = catchAsync(async (req: Request, res: Response) => {
 
 const uploadLessionVideo = catchAsync(async (req: Request, res: Response) => {
   const uploadedFiles = videoUpoalder.single('file')
+  console.log('udpated file', uploadedFiles)
   uploadedFiles(req, res, error => {
     if (error) {
-      // console.log('Error ', error)
+      console.log('Error ', error)
       res.status(StatusCodes.BAD_REQUEST).json({
         success: false,
         message: 'There has an error from server',
