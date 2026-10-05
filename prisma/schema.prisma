@@ -1,0 +1,197 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model Course{
+  id String  @default(uuid()) @unique
+  title String
+  introAboutCourse String
+  courseImgUrl String
+  demoVideoLink String
+  courseThummbnailUrl String?
+  price Float
+  isPublished Boolean @default(false)
+  categories String
+  subCategories String
+  courseLevel String
+  outline String?
+  courseDuration Int
+  learnSkill String[]
+  courseDescription String
+  chapters Chapter[]
+  instructor Instructor[]
+  reviews Review[] 
+  panddingEnrolledModel PanddingEnrolledModel[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("courses")
+}
+
+model Chapter{
+  id String  @default(uuid()) @unique
+  title String
+  isComplete Boolean @default(false)
+  videos Video[]
+  quizes Quize[]
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("chapters")
+}
+
+model Video{
+  id String @default(uuid()) @unique
+  videoTitle String
+  videoURL String
+  videoLength String?
+  watch String @default("Private")
+  isComplete Boolean @default(false)
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  @@map("videos")
+}
+
+model Instructor{
+  id String @default(uuid()) @unique
+  email String 
+  phone String
+  instructorImg String
+  name String
+  biography String
+  expert String
+  rating Int
+  socialMedia String[]
+  skills String[]
+  blogs Blog[]
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  password String?
+  role String?
+
+  @@map("instructors")
+}
+
+model Review{
+  id String @default(uuid()) @unique
+  userImage String
+  name String
+  rate Int 
+  compliment String
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
+}
+
+model PanddingEnrolledModel{
+  id String @default(uuid()) @unique
+  name String
+  email String
+  number Decimal
+  ZIPCode Decimal
+  division String?
+  district String?
+  thana String?
+  TotalPriceWithCharge Float
+  isEnrolled Boolean @default(false)
+  courseId String 
+  course Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("panddingEnrolledModel")
+}
+
+model Quize{
+  id String @default(uuid()) @unique
+  quizeName String
+  isComplete Boolean @default(false)
+  questions Question[]
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userQuizeAns UserQuizeAns[]
+
+  @@map("quizes")
+}
+
+model Question{
+  id String @default(uuid()) @unique
+  questionName String
+  options String[]
+  questionAnswer String
+  quizeId String 
+  quizes Quize @relation(fields: [quizeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("questions")
+}
+
+
+model Blog{
+  id String @default(uuid()) @unique
+  blogThumbnail String
+  title String
+  article String
+  readInTime Int
+  relatedTopic String[]
+  userId String 
+  author Instructor @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blogs")
+}
+
+model Student{
+  id String @default(uuid()) @unique
+  name String
+  email String? @unique
+  number String? @unique
+  role String
+  password String
+  rePassword String
+  image String?
+  facebook String?
+  twitter String?
+  linkedin String?
+  whatsapp String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserQuizeAns{
+  id String @default(uuid()) @unique
+  email String
+  quizeName String
+  quizeId String
+  userAns String[]
+  isTaken Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  takenQuize Quize @relation(fields: [quizeId], references: [id])
+
+  @@map("userQuizeAns")
+}
