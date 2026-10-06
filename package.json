@@ -1,4 +1,8 @@
 {
+  "name": "pnt-lms-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "start": "node dist/server.js",
@@ -16,5 +20,42 @@
   "lint-staged": {
     "src/**/*.ts": "npm run lint-prettier",
     "src/**/*.+(js|ts|json)": "prettier --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/fluent-ffmpeg": "^2.1.24",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^8.0.3",
+    "prettier": "^3.1.1",
+    "prisma": "^5.9.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@prisma/client": "^5.9.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^3.3.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-static": "^5.2.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "http-status": "^1.7.3",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "lint-staged": "^15.2.0",
+    "multer": "^1.4.5-lts.1",
+    "ts-node-dev": "^2.0.0"
   }
 }
